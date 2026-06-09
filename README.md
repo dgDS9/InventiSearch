@@ -1,6 +1,6 @@
-# InventiSearch – RAG MVP Backend
+# InventiSearch – Chatbot-/RAG-System
 
-InventiSearch is an MVP for intelligent search across biotechnology and laboratory quotation documents (PDF files).
+InventiSearch is a intelligent search across biotechnology and laboratory quotation documents (PDF files).
 
 The system processes quotation PDFs, extracts product information (SKU, product name, quantity, unit price, total price), generates embeddings using SentenceTransformers, stores them in ChromaDB, and answers user queries with Gemini 2.5 Flash.
 
@@ -146,9 +146,9 @@ Recommended architecture:
 
 This repository contains only synthetic sample data.
 
-All quotation PDFs, customers, company names, SKUs, and product information are intended solely for demonstration and testing purposes.
+All quotation PDFs, customers, company names, SKUs, and product information are intended solely for demonstration.
 
-For production use, the following enhancements are recommended:
+The following enhancements are recommended:
 
 * More robust PDF parsing
 * User management
