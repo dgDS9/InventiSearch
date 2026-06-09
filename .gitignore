@@ -36,3 +36,7 @@ Thumbs.db
 
 # word
 *.docx
+
+
+# archive
+backend/Archive/
