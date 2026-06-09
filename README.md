@@ -1,15 +1,21 @@
-# TAGACA RAG MVP Backend
+# InventiSearch – RAG MVP Backend
 
-Lokales MVP für PDF-Ingestion, Embeddings, ChromaDB-Suche und LLM-Antworten über Ollama/Llama3.
+InventiSearch is an MVP for intelligent search across biotechnology and laboratory quotation documents (PDF files).
 
-## Zielstruktur
+The system processes quotation PDFs, extracts product information (SKU, product name, quantity, unit price, total price), generates embeddings using SentenceTransformers, stores them in ChromaDB, and answers user queries with Gemini 2.5 Flash.
+
+## Project Structure
 
 ```text
-ChatBot/
-├── tagaca_mvp_pdfs/
+InventiSearch/
+├── samplecompany_quotation_pdfs/
 │   ├── 2021/
 │   ├── 2022/
-│   └── ...
+│   ├── 2023/
+│   ├── 2024/
+│   ├── 2025/
+│   └── 2026/
+│
 ├── backend/
 │   ├── api.py
 │   ├── ingestion.py
@@ -17,69 +23,140 @@ ChatBot/
 │   ├── llm.py
 │   ├── config.py
 │   └── requirements.txt
-├── chroma_db/              # wird automatisch erzeugt
-└── processed_files.json    # wird automatisch erzeugt
+│
+├── chroma_db/              # automatically generated
+├── processed_files.json    # automatically generated
+└── README.md
 ```
+
+## Features
+
+* PDF ingestion
+* Automatic extraction of:
+
+  * SKU
+  * Product name
+  * Quantity
+  * Unit price
+  * Total price
+* Embeddings with SentenceTransformers
+* Vector search with ChromaDB
+* RAG (Retrieval-Augmented Generation) workflow
+* Responses powered by Google Gemini 2.5 Flash
+* Multilingual search queries (English / Spanish)
+* Ready for deployment on Linux servers (e.g., Hetzner)
 
 ## Installation
 
 ```bash
-cd U:\Backup\ChatBot\backend
+cd backend
+
 python -m venv .venv
+
+# Windows
 .venv\Scripts\activate
+
 pip install -r requirements.txt
 ```
 
-## Ollama vorbereiten
+## Configuration
 
-```bash
-ollama pull llama3
-ollama serve
+Create a `.env` file:
+
+```env
+GEMINI_API_KEY=YOUR_API_KEY
+GEMINI_MODEL=gemini-2.5-flash
+GEMINI_TIMEOUT=120
+GEMINI_MAX_OUTPUT_TOKENS=1000
 ```
 
-Falls `ollama serve` sagt, dass Ollama schon läuft, ist das okay.
-
-## Backend starten
+## Start the Backend
 
 ```bash
 uvicorn api:app --reload --port 8000
 ```
 
-## PDFs importieren
-
-Im Browser oder per Postman:
+Swagger UI:
 
 ```text
-POST http://localhost:8000/ingest
+http://localhost:8000/docs
 ```
 
-Force-Reimport:
+## Import PDFs
 
 ```text
-POST http://localhost:8000/ingest?force=true
+POST /ingest
 ```
 
-## Suchen ohne LLM
+Force a full re-import:
 
 ```text
-GET http://localhost:8000/search?query=kit PCR EBV
+POST /ingest?force=true
 ```
 
-## Chat mit LLM
+## Product Search Without LLM
 
 ```text
-POST http://localhost:8000/chat
+GET /search?query=PCR kit HPV
 ```
 
-Body:
+Example:
+
+```text
+GET /search?query=Gilson P200 Pipette
+```
+
+## Chat with Gemini
+
+```text
+POST /chat
+```
+
+Request:
 
 ```json
 {
-  "query": "¿Se ha vendido alguna vez un kit PCR para EBV?",
+  "query": "Have we ever sold a Gilson P200 pipette?",
   "top_k": 5
 }
 ```
 
-## Wichtiger Hinweis
+## Technologies Used
 
-Dieses MVP nutzt einen einfachen Parser. Für echte 50.000 PDFs sollte später ein robuster Produktzeilen-Parser gebaut werden.
+* FastAPI
+* ChromaDB
+* SentenceTransformers
+* Gemini 2.5 Flash
+* PyMuPDF
+* Python 3.11+
+
+## Deployment
+
+The backend is designed for deployment on a Linux server (e.g., Hetzner CX32).
+
+Recommended architecture:
+
+* FastAPI
+* ChromaDB running locally on the server
+* Gemini 2.5 Flash API
+* GitHub repository for deployment and version control
+* Nginx as a reverse proxy
+
+## Notes
+
+This repository contains only synthetic sample data.
+
+All quotation PDFs, customers, company names, SKUs, and product information are intended solely for demonstration and testing purposes.
+
+For production use, the following enhancements are recommended:
+
+* More robust PDF parsing
+* User management
+* API authentication
+* Database-backed chat history
+* Cloud storage integration (e.g., Zoho WorkDrive)
+* Monitoring and logging
+* Automated re-indexing of new documents
+
+```text
+```
