@@ -1,0 +1,38 @@
+# Secrets
+.env
+*.env
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ChromaDB / local vector database
+chroma_db/
+
+# Ingestion state
+processed_files.json
+
+# Local PDFs / customer data
+samplecompany_quotation_pdfs/
+tagaca_mvp_pdfs/
+*_mvp_pdfs/
+*.zip
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# word
+*.docx
