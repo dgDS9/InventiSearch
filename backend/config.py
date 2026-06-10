@@ -8,7 +8,7 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # PDF-Ordner liegt laut Screenshot direkt im ChatBot-Root
-PDF_ROOT = PROJECT_ROOT / r"C:\Users\Daniela.Gaer\Desktop\Neu\InventiSearch\samplecompany_quotation_pdfs"
+PDF_ROOT = PROJECT_ROOT / "samplecompany_quotation_pdfs"
 
 # Lokale Speicherorte
 CHROMA_PATH = PROJECT_ROOT / "chroma_db"
