@@ -44,7 +44,7 @@ InventiSearch/
 * RAG (Retrieval-Augmented Generation) workflow
 * Responses powered by Google Gemini 2.5 Flash
 * Multilingual search queries (English / Spanish)
-* Ready for deployment on Linux servers (e.g., Hetzner)
+* Deployed on Linux servers (Hetzner)
 
 ## Installation
 
@@ -132,15 +132,20 @@ Request:
 
 ## Deployment
 
-The backend is designed for deployment on a Linux server (e.g., Hetzner CX32).
+Production Infrastructure
 
-Recommended architecture:
+The current Project is deployed on a Hetzner Ubuntu server and includes:
 
-* FastAPI
-* ChromaDB running locally on the server
-* Gemini 2.5 Flash API
-* GitHub repository for deployment and version control
-* Nginx as a reverse proxy
+* GitHub repository for version control and deployments
+* FastAPI backend with Swagger API documentation
+* ChromaDB for vector storage and semantic search
+* Google Gemini 2.5 Flash for answer generation
+* systemd service for automatic startup and process management
+* Nginx reverse proxy for secure request routing
+* UFW firewall with only required ports exposed
+* Dedicated Linux service user (inventisearch) instead of root (for security)
+* Environment-based configuration via .env
+* Rate limiting to reduce abuse and control LLM costs
 
 ## Notes
 
@@ -154,7 +159,6 @@ The following enhancements are recommended:
 * User management
 * API authentication
 * Database-backed chat history
-* Cloud storage integration (e.g., Zoho WorkDrive)
 * Monitoring and logging
 * Automated re-indexing of new documents
 
