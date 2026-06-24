@@ -68,7 +68,7 @@ def search(query: str, top_k: int = 10):
 
 
 @app.post("/chat")
-@limiter.limit("20/hour")
+@limiter.limit("100/hour")
 def chat(request: Request, chat_request: ChatRequest):
     if len(chat_request.query) > MAX_QUERY_LENGTH:
         raise HTTPException(status_code=400, detail="Query too long.")
