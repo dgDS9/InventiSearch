@@ -1,4 +1,5 @@
 from typing import Optional
+from starlette.responses import JSONResponse
 
 from fastapi import FastAPI, Query, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,21 +15,28 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
 app = FastAPI(title="Testing RAG-System/LLM", version="0.1.0")
-# Ratenbegrenzung: max. 5 Anfragen pro Minute pro IP-Adresse, um Missbrauch zu verhindern. Für MVP ggf. großzügiger einstellen.
-limiter = Limiter(key_func=get_remote_address)
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, lambda request, exc: HTTPException(status_code=429, detail="Too many requests."))
-app.add_middleware(SlowAPIMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "https://pablomedito.github.io",
+        "https://pablomedito.github.io",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request, exc):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "Too many requests. Please try again later."},
+    )
+
+app.add_middleware(SlowAPIMiddleware)
 
 
 MAX_TOP_K = 10
