@@ -1,9 +1,9 @@
 # InventiSearch – Chatbot-/RAG-System
 
-Backend/LLM: Daniela Gaer
+Backend/LLM: Daniela Gaer &
 Frontend: Pablo Medialdea Torres
 
-Offical link to the Chatbot: https://pablomedito.github.io/InventiSearch/
+Offical link to the Chatbot: https://pablomedito.github.io/InventiSearch/ (Beta Version)
 
 InventiSearch is a intelligent search across biotechnology and laboratory quotation documents (PDF files).
 
