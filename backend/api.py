@@ -89,9 +89,10 @@ def chat(request: Request, chat_request: ChatRequest):
         answer = ask_llm(chat_request.query, search_result)
     except Exception:
         answer = (
-        "Product matches were found successfully. However, the AI explanation is temporarily unavailable because "
-        "the free daily quota of Google Gemini has been reached. Please try again later."
-    )
+            "The product search worked successfully, but an AI-generated answer is currently unavailable. "
+            "InventiSearch uses the free version of Google Gemini, and the daily request limit has been reached. "
+            "Please try again later."
+        )
 
     return {
         "query": chat_request.query,
