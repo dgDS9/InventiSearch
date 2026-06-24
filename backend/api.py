@@ -88,7 +88,10 @@ def chat(request: Request, chat_request: ChatRequest):
     try:
         answer = ask_llm(chat_request.query, search_result)
     except Exception:
-        answer = "LLM temporarily unavailable. The product search still worked, but Gemini could not generate an answer right now."
+        answer = (
+        "Product matches were found successfully. However, the AI explanation is temporarily unavailable because "
+        "the free daily quota of Google Gemini has been reached. Please try again later."
+    )
 
     return {
         "query": chat_request.query,
