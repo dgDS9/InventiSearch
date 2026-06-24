@@ -1,5 +1,10 @@
 # InventiSearch – Chatbot-/RAG-System
 
+Backend/LLM: Daniela Gaer
+Frontend: Pablo Medialdea Torres
+
+Offical link to the Chatbot: https://pablomedito.github.io/InventiSearch/
+
 InventiSearch is a intelligent search across biotechnology and laboratory quotation documents (PDF files).
 
 The system processes quotation PDFs, extracts product information (SKU, product name, quantity, unit price, total price), generates embeddings using SentenceTransformers, stores them in ChromaDB, and answers user queries with Gemini 2.5 Flash.
