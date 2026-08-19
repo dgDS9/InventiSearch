@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    image: inventisearch-backend:local
+
+    env_file:
+      - ./backend/.env
+
+    ports:
+      - "127.0.0.1:8001:8000"
+
+    volumes:
+      - ./chroma_db:/chroma_db
+      - ./processed_files.json:/processed_files.json
+      - ./samplecompany_quotation_pdfs:/samplecompany_quotation_pdfs:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
