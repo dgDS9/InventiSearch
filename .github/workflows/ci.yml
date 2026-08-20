@@ -41,6 +41,14 @@ jobs:
       - name: Check Python syntax
         run: python -m compileall backend
 
+      - name: Run tests
+        working-directory: backend
+        env:
+          GEMINI_API_KEY: test-key
+        run: |
+          pip install pytest
+          python -m pytest -v
+
   docker-build:
     name: Docker Build
     runs-on: ubuntu-latest
