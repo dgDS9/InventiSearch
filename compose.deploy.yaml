@@ -1,0 +1,33 @@
+name: inventisearch-${DEPLOY_ENV}
+
+services:
+  backend:
+    image: ghcr.io/dgds9/inventisearch-backend:${IMAGE_TAG}
+
+    container_name: inventisearch-${DEPLOY_ENV}
+
+    env_file:
+      - ${APP_ENV_FILE}
+
+    ports:
+      - "127.0.0.1:${HOST_PORT}:8000"
+
+    volumes:
+      - ${CHROMA_PATH}:/chroma_db
+      - ${PROCESSED_FILE}:/processed_files.json
+      - ./samplecompany_quotation_pdfs:/samplecompany_quotation_pdfs:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
