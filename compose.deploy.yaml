@@ -15,7 +15,7 @@ services:
     volumes:
       - ${CHROMA_PATH}:/chroma_db
       - ${PROCESSED_FILE}:/processed_files.json
-      - ./samplecompany_quotation_pdfs:/samplecompany_quotation_pdfs:ro
+      - ${PDF_PATH}:/samplecompany_quotation_pdfs:ro
 
     restart: unless-stopped
 
